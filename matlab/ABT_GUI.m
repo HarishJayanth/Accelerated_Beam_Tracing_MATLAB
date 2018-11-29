@@ -22,7 +22,7 @@ function varargout = ABT_GUI(varargin)
 
 % Edit the above text to modify the response to help ABT_GUI
 
-% Last Modified by GUIDE v2.5 23-Nov-2018 13:07:21
+% Last Modified by GUIDE v2.5 29-Nov-2018 12:17:13
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -41,9 +41,6 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-
-addpath('Classes/');
-addpath('Functions/');
 % End initialization code - DO NOT EDIT
 
 
@@ -60,6 +57,12 @@ handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
+addpath('Classes/');
+addpath('Functions/');
+
+
+
+
 
 % UIWAIT makes ABT_GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -74,6 +77,7 @@ function varargout = ABT_GUI_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
 
 
 
@@ -390,8 +394,8 @@ else
     lst = evalin('base', 'lst');
     order = str2double(get(handles.reflOrd_val, 'String'));
     pathSol = evalin('base', 'pathSol');
-    changed = sum(prevSrcPos == src.getPosition())==3;  % check if source has moved
-    changed = changed || (order ~= prevOrder);           % and check if order has changed
+    changed = sum(prevSrcPos == src.getPosition())~=3 ...   % check if source has moved
+        || (order ~= prevOrder); ;                          % and check if order has changed            
 
     if changed
         if order ~= prevOrder
