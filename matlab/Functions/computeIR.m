@@ -29,13 +29,7 @@ else
     g(1) = 1;
 end
 
-% y = zeros(ceil(max(pathSamp)),1);
-% y(ceil(pathSamp)) = g.*sig_interp(1,1-mod(pathSamp,1));
-% f1 = figure;
-% figure(f1);
-% plot(y);
-
-load('filtImp.mat');
+load('octFilt_freqDomain.mat');
 m = evalin('base', 'matFile');
 
 path_refl_gain = ones(numPaths, 10);
@@ -46,13 +40,15 @@ for i = 2:numPaths
     end
 end
 
-impLen = size(b,2);
+impLen = size(octBands,1);
 ir = zeros(ceil(max(pathSamp)) + impLen + 1,1);
 for i = 1:numPaths
     sampBegin = ceil(pathSamp(i));
-    pathImp = g(i)*path_refl_gain(i,:) * b;
+    pathFreqResp = mps(sum(octBands .* repmat(path_refl_gain(i,:), impLen, 1),2));
+    pathImp = g(i)*ifft(pathFreqResp, 'symmetric');
+    pathImp(find(isnan(pathImp))) = zeros(size(pathImp(find(isnan(pathImp)))));
     ir(sampBegin:sampBegin + impLen - 1) = ir(sampBegin:sampBegin + impLen - 1) + ...
-       sig_interp(pathImp', 1 - mod(pathSamp(i),1));
+       sig_interp(pathImp, 1 - mod(pathSamp(i),1));
 end
 
 end

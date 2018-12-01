@@ -32,7 +32,7 @@ fclose(f);
 
 % figure(plotHandle);
 for i = 1:length(srfcs)
-    fill3(srfcs(i).points(:,1), srfcs(i).points(:,2), srfcs(i).points(:,3), srfcs(i).c, 'FaceAlpha', 0.2);
+    fill3(srfcs(i).points(:,1), srfcs(i).points(:,2), srfcs(i).points(:,3), srfcs(i).c, 'FaceAlpha', 0.25);
     hold on;
 end
 
