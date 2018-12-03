@@ -1,3 +1,14 @@
+% computeIR.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Computes impulse response based on the paths between source and
+%               listener.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
+
 function ir = computeIR(p, fs)
 
 numPaths = p.numPaths();

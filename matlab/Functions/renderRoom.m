@@ -1,3 +1,12 @@
+% renderRoom.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Renders room surfaces in the room panel of the GUI.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
 function plotHandle = renderRoom(roomFile, plotHandle)
 
 if nargin == 1
@@ -14,7 +23,7 @@ while 1
     if line == -1
         break;
     end
-    
+
     txt = strsplit(line);
     if txt{1} == '1'
         numPoints = str2double(txt{6});
@@ -39,4 +48,3 @@ end
 renderSrcAndLst(plotHandle);
 
 end
-

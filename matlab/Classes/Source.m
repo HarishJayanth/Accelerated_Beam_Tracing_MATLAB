@@ -1,32 +1,32 @@
+% Source.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Matlab Class that mirrors "Source" C++ class.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
 classdef Source < cppclass
-% Example class for how to derive from cppclass and interface with your C++
-% class. Specifically, this demonstrates the use of a C++ priority queue.
-% by Jonathan Chappelow (chappjc)
     methods
 
-        % Use the name of your MEX file here
         function obj = Source(varargin)
             obj@cppclass('evert_wrapper','Source',varargin{:});
         end
 
         % new and delete are inherited, everything else calls cppmethod()
-
-        % currentNumberOfElements = p.len()
         function varargout = getPosition(obj)
             [varargout{1:nargout}] = obj.cppmethod('getposition');
         end
 
-        % currentNumberOfElements = p.len()
         function varargout = setPosition(obj, pos)
             [varargout{1:nargout}] = obj.cppmethod('setposition', pos);
         end
 
-        % currentNumberOfElements = p.len()
         function varargout = getOrientation(obj)
             [varargout{1:nargout}] = obj.cppmethod('getorientation');
         end
 
-        % currentNumberOfElements = p.len()
         function varargout = setOrientation(obj, orientation)
             [varargout{1:nargout}] = obj.cppmethod('setorientation', orientation);
         end

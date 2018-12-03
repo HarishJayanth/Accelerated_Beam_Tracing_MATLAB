@@ -1,3 +1,12 @@
+% renderPaths.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Renders the paths in the room panel of the GUI.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
 function renderPaths(p, plotHandle)
 
 if nargin == 1

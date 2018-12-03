@@ -1,9 +1,18 @@
 /*
-* EVERT matlab interface
-* Calls to the mexFunction contain the following arguments
-* 1. Class Type - ex. PathSolution, Room, Source, Listener,...
-* 2. Function to be called - the ex. new, delete, ....
-* 3. Arguments to the function
+* evert_wrapper.cpp
+* ------------------------------------------------------------------------------
+* Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+* 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+* Description: EVERT matlab interface
+* 				Calls to the mexFunction contain the following arguments
+* 				1. Class Type - ex. PathSolution, Room, Source, Listener,...
+* 				2. Function to be called - the ex. new, delete, ....
+* 				3. Arguments to the function
+* Author: Harish Venkatesan
+*		  M.A., Music Technology
+* 		  McGill University
+* ------------------------------------------------------------------------------
+*
 */
 #include "mex.h"
 

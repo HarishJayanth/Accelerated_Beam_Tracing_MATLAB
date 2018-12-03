@@ -1,3 +1,12 @@
+% PathSolution.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Matlab Class that mirrors "PathSolution" C++ class.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
 classdef PathSolution < cppclass
 % Example class for how to derive from cppclass and interface with your C++
 % class. Specifically, this demonstrates the use of a C++ priority queue.
@@ -15,21 +24,17 @@ classdef PathSolution < cppclass
             end
             obj@cppclass('evert_wrapper','pathsolution', 0,rm.getHandle(), ...
                 src.getHandle(), lst.getHandle(), maxOrd);
-%             obj.solve(obj);
         end
 
         % new and delete are inherited, everything else calls cppmethod()
 
-        % currentNumberOfElements = p.len()
         function varargout = solve(obj, varargin)
             [varargout{1:nargout}] = obj.cppmethod('solve', varargin{:});
-%             disp('Solution computed.')
             obj.changed = 1;
         end
 
         function varargout = update(obj)
             [varargout{1:nargout}] = obj.cppmethod('update');
-%             disp('Solution updated.')
             obj.nPaths = numPaths(obj);
             obj.changed = 1;
         end
@@ -43,8 +48,6 @@ classdef PathSolution < cppclass
         function varargout = getPath(obj, pathInd)
             if isempty(obj.nPaths)
                 error('Compute solution first');
-            elseif pathInd < 1 || pathInd > length(obj.nPaths)
-%                 error('Index out of bounds');
             end
             [varargout{1:nargout}] = obj.cppmethod('getpath', pathInd - 1);
         end

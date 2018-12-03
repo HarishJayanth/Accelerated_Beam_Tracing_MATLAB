@@ -1,7 +1,13 @@
+% Room.m
+% ------------------------------------------------------------------------------
+% Project title: EVERT_matlab - MATLAB Wrappers for the EVERT library.
+% 			  https://users.aalto.fi/~laines9/publications/laine2009aa_code.zip
+% Description: Matlab Class that mirrors "Room" C++ class.
+% Author: Harish Venkatesan
+%		  M.A., Music Technology
+% 		  McGill University
+% ------------------------------------------------------------------------------
 classdef Room < cppclass
-% Example class for how to derive from cppclass and interface with your C++
-% class. Specifically, this demonstrates the use of a C++ priority queue.
-% by Jonathan Chappelow (chappjc)
     methods
 
         % Use the name of your MEX file here
@@ -11,7 +17,6 @@ classdef Room < cppclass
 
         % new and delete are inherited, everything else calls cppmethod()
 
-        % currentNumberOfElements = p.len()
         function varargout = import(obj, filename, mat)
             if ~strcmp(mat.getType(), 'MaterialFile')
                 error('Invalid Arguments: Argin = (filename, materialFile_inst)')
