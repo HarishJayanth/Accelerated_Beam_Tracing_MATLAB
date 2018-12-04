@@ -53,10 +53,16 @@ end
 
 impLen = size(octBands,1);
 ir = zeros(ceil(max(pathSamp)) + impLen + 1,1);
+f = [0:impLen/2 - 1]*fs/impLen;
+airAbs = -atten(23, 29.92, 35, 1, f); % air aborption per unit length
+airAbs = [airAbs airAbs(end) airAbs(end:-1:2)]';
+
 for i = 1:numPaths
     sampBegin = ceil(pathSamp(i));
-    pathFreqResp = mps(sum(octBands .* repmat(path_refl_gain(i,:), impLen, 1),2));
+    pathRefl = sum(octBands .* repmat(path_refl_gain(i,:), impLen, 1),2);
+    pathFreqResp = mps(pathRefl .* 10.^(airAbs * pathLen(i) / 20)); 
     pathImp = g(i)*ifft(pathFreqResp, 'symmetric');
+%     pathImp = ifft(pathFreqResp, 'symmetric');
     pathImp(find(isnan(pathImp))) = zeros(size(pathImp(find(isnan(pathImp)))));
     ir(sampBegin:sampBegin + impLen - 1) = ir(sampBegin:sampBegin + impLen - 1) + ...
        sig_interp(pathImp, 1 - mod(pathSamp(i),1));

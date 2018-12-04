@@ -518,10 +518,23 @@ else
     end
     clear sound;
     irFilt = evalin('base', 'irFilt');
+    ir = evalin('base', 'ir');
     sampSound = evalin('base', 'sampSound');
     fs_samp = evalin('base', 'fs_samp');
-    filtOut = irFilt(sampSound);
-    sound(filtOut/max(abs(filtOut)), fs_samp);
+    fs = evalin('base', 'fs');
+    sampSound = resample(sampSound, fs, fs_samp);
+%     Lfft = length(ir) + length(sampSound) + 1;
+%     FR = fft(ir, Lfft);
+%     S = fft(sampSound, Lfft);
+%     filtOut = ifft(FR.*S);
+    
+    filtOut = zeros(size(sampSound));
+    for i = 1:size(sampSound,2)
+        filtOut(:,i) = irFilt(sampSound(:,i) * 0.5);
+    end
+%     filtOut = irFilt(sampSound * 0.5);
+%     sound(filtOut/max(abs(filtOut)), fs);
+    sound(filtOut, fs);
 end
 
 
