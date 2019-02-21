@@ -50,20 +50,20 @@ enum class PathSol_Action
 	Solve,			// Build beam tree
 	Update,			// Find paths from listener to source
 	NumPaths,		// Get number of paths
-	GetPath			// Get all points of intersection, polygons and source, listener positions in the path
-	//GetSolution	// Get beam tree
+	GetPath,		// Get all points of intersection, polygons and source, listener positions in the path
+	GetBeamTree		// Get beam tree
 };
 
 // Map string (first input argument to mexFunction) to an PathSol_Action
 const std::map<std::string, PathSol_Action> pathSol_actionTypeMap =
 {
-	{ "new",	PathSol_Action::New			},
-	{ "delete", PathSol_Action::Delete		},
-	{ "solve",	PathSol_Action::Solve		},
-	{ "update", PathSol_Action::Update		},
-	{ "numpaths",PathSol_Action::NumPaths	},
-	{ "getpath",PathSol_Action::GetPath		}
-	/*{ "getSolution",	PathSol_Action::GetSolution	*/
+	{ "new",			PathSol_Action::New			},
+	{ "delete", 		PathSol_Action::Delete		},
+	{ "solve",			PathSol_Action::Solve		},
+	{ "update", 		PathSol_Action::Update		},
+	{ "numpaths",		PathSol_Action::NumPaths	},
+	{ "getpath",		PathSol_Action::GetPath		},
+	{ "getbeamtree",	PathSol_Action::GetBeamTree	}
 };
 
 /////////////////////////  END Step 1: Configuration  /////////////////////////
@@ -215,6 +215,21 @@ void pathSolution_wrapper(int nlhs, mxArray *plhs[], int nrhs, const mxArray *pr
 
         break;
 
+	}
+	case PathSol_Action::GetBeamTree:
+	{
+		if (nrhs > 2)
+			mexWarnMsgTxt("Ignoring unnecessary arguments.");
+
+		std::vector<EL::PathSolution::SolutionNode> bTree = instance->getBeamTree();
+
+		plhs[0] = mxCreateDoubleMatrix(1, bTree.size(), mxREAL);
+
+		double* parent = (double*)mxGetPr(plhs[0]);
+		for (int i = 0; i < bTree.size(); i++)
+			parent[i] = bTree[i].m_parent+1;
+
+		break;
 	}
 	default:
 		mexErrMsgTxt(("Unrecognized function: " + actionStr).c_str());

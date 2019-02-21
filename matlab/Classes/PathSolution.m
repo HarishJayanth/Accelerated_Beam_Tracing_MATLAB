@@ -52,6 +52,10 @@ classdef PathSolution < cppclass
             [varargout{1:nargout}] = obj.cppmethod('getpath', pathInd - 1);
         end
 
+        function varargout = getBeamTree(obj)
+            [varargout{1:nargout}] = obj.cppmethod('getbeamtree');
+        end
+
     end
 
 end
